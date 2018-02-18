@@ -1,0 +1,19 @@
+[package]
+name = "spatial"
+version = "0.0.0"
+authors = ["Yuan Liu <yuan6liu@gmail.com>"]
+description = "Algorithms for Spatial Acceleration and Geometries."
+repository = "https://github.com/clearlycloudy/spatial/"
+keywords = [ "spatial" ]
+license = "BSD-2-Clause"
+documentation = "https://docs.rs/spatial/0.0.0/spatial/"
+readme = "README.md"
+
+[dependencies]
+# rand = "0.3"
+# chrono = "0.4.0"
+num = "0.1.41"
+
+[lib]
+name = "spatial"
+path = "lib/mod.rs"
