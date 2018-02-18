@@ -1,11 +1,15 @@
+extern crate mazth;
+
 #[cfg(test)]
 use std::f64;
 use interface::i_spatial_accel::ISpatialAccel;
-use interface::i_bound::IBound;
-use interface::i_shape::ShapeType;
+use self::mazth::{
+    i_bound::IBound,
+    i_shape::ShapeType,
+    bound::AxisAlignedBBox,
+    bound_sphere::BoundSphere,
+};
 use implement::bvh::Bvh;
-use implement::bound::AxisAlignedBBox;
-use implement::bound_sphere::BoundSphere;
 
 #[test]
 fn test_bvh_supported_bounds(){

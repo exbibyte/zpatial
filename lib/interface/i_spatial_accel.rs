@@ -1,4 +1,6 @@
-use interface::i_bound::IBound;
+extern crate mazth;
+
+use self::mazth::i_bound::IBound;
 
 /// acceleration interface for building and querying spatial data
 pub trait ISpatialAccel {

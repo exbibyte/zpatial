@@ -1,13 +1,14 @@
+extern crate mazth;
+
+use self::mazth::{ bound::{ AxisAlignedBBox, Axis } };
+use self::mazth::{ i_bound::{ IBound, BoundType } };
+
 use std::boxed::Box;
 use std::f64;
 use std::u64;
 
 use interface::i_spatial_accel::ISpatialAccel;
-use interface::i_bound::{ IBound, BoundType };
 use interface::i_stat_tree::IStatTree;
-
-use implement::bound::AxisAlignedBBox;
-use implement::bound::Axis;
 
 /// implementation of spatial acceleration using bounding volume hierarchy with surface area heuristic
 pub struct Bvh {
