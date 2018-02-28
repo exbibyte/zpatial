@@ -1,7 +1,7 @@
 extern crate mazth;
 
-use self::mazth::{ bound::{ AxisAlignedBBox, Axis } };
-use self::mazth::{ i_bound::{ IBound, BoundType } };
+use self::mazth::bound::{ AxisAlignedBBox, Axis };
+use self::mazth::i_bound::{ IBound, BoundType };
 
 use std::boxed::Box;
 use std::f64;
