@@ -1,6 +1,6 @@
 [package]
 name = "zpatial"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Yuan Liu <yuan6liu@gmail.com>"]
 description = "Algorithms for Spatial Acceleration and Geometries."
 repository = "https://github.com/clearlycloudy/zpatial/"
