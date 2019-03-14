@@ -1,6 +1,6 @@
 [package]
 name = "zpatial"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Yuan Liu <yuan6liu@gmail.com>"]
 description = "Algorithms for Spatial Acceleration and Geometries."
 repository = "https://github.com/clearlycloudy/zpatial/"
@@ -11,7 +11,7 @@ readme = "README.md"
 
 [dependencies]
 # num = "0.1.41"
-mazth = "0.1.0"
+mazth = "0.2"
 pretty_env_logger = "0.2.0"
 log = "0.4.1"
 rand = "0.6.5"
