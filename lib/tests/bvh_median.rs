@@ -16,10 +16,10 @@ use self::mazth::{
     bound::AxisAlignedBBox,
     bound_sphere::BoundSphere,
 };
-use implement::bvh::Bvh;
+use implement::bvh_median::Bvh;
 
 #[test]
-fn test_bvh_supported_bounds(){
+fn test_bvh_median_supported_bounds(){
     let mut a = Bvh::init( 10 ); //bin count of 10
     let aabb = AxisAlignedBBox::init( ShapeType::SPHERE, &[ 0f64, 0f64, 0f64, 5f64 ] );
     let objs =  [ ( 0u64, &aabb as &IBound ) ];
@@ -30,7 +30,7 @@ fn test_bvh_supported_bounds(){
 }
 
 #[test]
-fn test_bvh_unsupported_bounds(){
+fn test_bvh_median_unsupported_bounds(){
     let mut a = Bvh::init( 10 );
     let aabb = BoundSphere::init( ShapeType::SPHERE, &[ 0f64, 0f64, 0f64, 5f64 ] );
     let objs =  [ ( 0u64, &aabb as &IBound ) ];
@@ -41,7 +41,7 @@ fn test_bvh_unsupported_bounds(){
 }
 
 #[test]
-fn test_bvh_construction_and_query(){
+fn test_bvh_median_construction_and_query(){
     let mut a = Bvh::init( 30 );
     let mut bounds = vec![];
     let mut bound_refs = vec![];
@@ -123,22 +123,22 @@ fn test_bvh_construction_and_query(){
 }
 
 #[test]
-fn test_bvh_stress(){
+fn test_bvh_median_stress(){
     
-    env::set_var("LOG_SETTING", "debug" );
+    // env::set_var("LOG_SETTING", "info" );
     
-    pretty_env_logger::init_custom_env( "LOG_SETTING" );
+    // pretty_env_logger::init_custom_env( "LOG_SETTING" );
     
     let mut a = Bvh::init( 10 ); //bin count of 10
 
     let mut rng = rand::thread_rng();
     
-    let v = (0..100_000 as u32)
+    let v = (0..100_000)
         .map(|x| {
             let rx = rng.gen_range(0., 1.);
             let ry = rng.gen_range(0., 1.);
             let rz = rng.gen_range(0., 1.);
-            (x, AxisAlignedBBox::init( ShapeType::SPHERE, &[ rx, ry, rz, 0.00001f64 ] ) )
+            (x, AxisAlignedBBox::init( ShapeType::SPHERE, &[ rx, ry, rz, 0.000001f64 ] ) )
         })
         .collect::<Vec<_>>();
 
@@ -163,21 +163,19 @@ fn test_bvh_stress(){
     
     for (idx,vv) in v.iter().enumerate(){
         let c = vv.1.get_centroid();
-
         let query = AxisAlignedBBox::init( ShapeType::POINT, &c[..] );
 
         let t2 = Local::now();
         
         match a.query_intersect_single( &query ) {
             Ok( o ) => {
-                
+                // assert!( o.len() > 0, "bvh query_intersect return length unexpected" );
+
                 let t3 = Local::now();
                 
                 let t_delta = t3.signed_duration_since(t2).num_microseconds().unwrap() as f64;
-
-                query_time += t_delta;    
+                query_time += t_delta;
                 
-                // assert!( o.len() > 0, "bvh query_intersect return length unexpected" );
                 let found = o.iter().any(|x| *x as usize == idx );
                 assert!( found, "query item not found" );
                 query_ret_count += o.len();
@@ -189,5 +187,4 @@ fn test_bvh_stress(){
     }
     info!( "avg query return size: {}", query_ret_count as f32 / v.len() as f32 );
     info!( "avg query time: {}", query_time as f32 / v.len() as f32 );
-    
 }

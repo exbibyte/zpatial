@@ -10,10 +10,12 @@ documentation = "https://docs.rs/zpatial/0.1.1/zpatial/"
 readme = "README.md"
 
 [dependencies]
-# rand = "0.3"
-# chrono = "0.4.0"
 # num = "0.1.41"
 mazth = "0.1.0"
+pretty_env_logger = "0.2.0"
+log = "0.4.1"
+rand = "*"
+chrono = "0.4"
 
 [lib]
 name = "zpatial"
