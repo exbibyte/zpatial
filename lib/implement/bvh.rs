@@ -1,8 +1,8 @@
-extern crate mazth;
+pub extern crate mazth;
 extern crate pretty_env_logger;
 
-use self::mazth::bound::{ AxisAlignedBBox, Axis };
-use self::mazth::i_bound::{ IBound, BoundType };
+pub use self::mazth::bound::{ AxisAlignedBBox, Axis };
+pub use self::mazth::i_bound::{ IBound, BoundType };
 
 use std::collections::HashMap;
 use std::boxed::Box;
