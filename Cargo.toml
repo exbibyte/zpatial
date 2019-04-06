@@ -1,17 +1,17 @@
 [package]
 name = "zpatial"
-version = "0.3.1"
+version = "0.3.2"
 authors = ["Yuan Liu <yuan6liu@gmail.com>"]
 description = "Algorithms for Spatial Acceleration and Geometries."
 repository = "https://github.com/clearlycloudy/zpatial/"
 keywords = [ "zpatial", "spatial" ]
 license = "BSD-2-Clause"
-documentation = "https://docs.rs/zpatial/0.1.1/zpatial/"
+documentation = "https://docs.rs/zpatial/0.3.2/zpatial/"
 readme = "README.md"
 
 [dependencies]
 # num = "0.1.41"
-mazth = "0.4.1"
+mazth = "0.4.2"
 pretty_env_logger = "0.2.0"
 log = "0.4.1"
 rand = "0.6.5"
