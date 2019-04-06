@@ -13,8 +13,11 @@ use interface::i_spatial_accel::ISpatialAccel;
 use self::mazth::{
     i_bound::IBound,
     i_shape::ShapeType,
+    i_shape::IShape,
     bound::AxisAlignedBBox,
     bound_sphere::BoundSphere,
+    triprism::TriPrism,
+    point::Point3,
 };
 use implement::bvh_median::Bvh;
 
@@ -187,4 +190,57 @@ fn test_bvh_median_stress(){
     }
     info!( "avg query return size: {}", query_ret_count as f32 / v.len() as f32 );
     info!( "avg query time: {}", query_time as f32 / v.len() as f32 );
+}
+
+
+#[test]
+fn test_bvh_median_tri_prism_point_intersection(){
+    
+    let mut a = Bvh::init( 30 );
+
+    let triprism_base_verts = [ 0., 0., 0.,
+                                1., 0., 0.,
+                                1., 1., 0. ];
+    
+    let tp = TriPrism::init( &triprism_base_verts, 1. );
+    
+    let mut bounds = vec![];
+    
+    let aabb = tp._bound.clone();
+    bounds.push( aabb );
+    
+    let objs = &[ (tp.clone(), &bounds[0] as &IBound) ];
+    
+    match a.build_all( &objs[..] ) {
+        Ok( () ) => (),
+        _ => { panic!("unexpected result for supported bound type"); },
+    }
+
+    //query present
+    {
+        let b = Point3::init(&[ 0.5, 0.5, 0.5 ]);
+        let query = b._bound.clone();
+        
+        match a.query_intersect( &query ) {
+            Ok( o ) => {
+                assert!( o.len() > 0, "bvh query_intersect return length unexpected" );
+                let intersected = o.iter().any(|x| x.get_intersect( &b ).0 );
+                assert_eq!( intersected, true );
+            },
+            _ => (),
+        }
+    }
+    //query not present
+    {
+        let b = Point3::init(&[ 0.5, 0.51, 0.5 ]);
+        let query = b._bound.clone();
+        
+        match a.query_intersect( &query ) {
+            Ok( o ) => {
+                let intersected = o.iter().any(|x| x.get_intersect( &b ).0 );
+                assert_eq!( intersected, false );
+            },
+            _ => (),
+        }
+    }
 }
