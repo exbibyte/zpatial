@@ -1,7 +1,8 @@
-#[macro_use] extern crate log;
+#[macro_use]
+extern crate log;
 
-pub mod interface;
 pub mod implement;
+pub mod interface;
 
 pub extern crate mazth;
 
